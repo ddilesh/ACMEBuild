@@ -10,7 +10,9 @@ pipeline {
 
     stage('Run Smoke Test') {
       steps {
-        echo 'Smoke Test Run Successfully'
+        echo 'Smoke Test Run Started'
+        git(url: 'https://github.com/ddilesh/EyeAutomation', branch: 'master', poll: true)
+        bat 'mvn test -DEnvironment=QA'
       }
     }
 
@@ -40,6 +42,12 @@ pipeline {
     stage('Deploy to QA') {
       steps {
         echo 'QA Certified Success'
+      }
+    }
+
+    stage('Manual Certify') {
+      steps {
+        input(message: 'Manual Certification', ok: 'Yes')
       }
     }
 
