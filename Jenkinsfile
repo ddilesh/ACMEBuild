@@ -46,6 +46,9 @@ pipeline {
     }
 
     stage('Manual Certify') {
+      when {
+        branch 'master'
+      }
       steps {
         input(message: 'Manual Certification', ok: 'Yes')
       }
